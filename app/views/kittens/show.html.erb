@@ -9,6 +9,5 @@
 
 <%= link_to 'Delete', kittens_path(@kitten), method: :delete, data: {confirm: "Are you sure?"}, class: "mr-2 btn btn-danger" %>
 
-<p>
-  <%= link_to "Back to Home", kittens_index_path, class: "my-4" %>
-</p>
+<%=  render 'footer_link'%>
+

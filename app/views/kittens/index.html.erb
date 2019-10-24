@@ -1,2 +1,24 @@
-<h1>Kittens#index</h1>
-<p>Find me in app/views/kittens/index.html.erb</p>
+<h1>Welcome to Kittens World</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Age</th>
+      <th scope="col">Cuteness</th>
+      <th scope="col">Softness</th>
+      <th scope="col">Operation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render @kittens %>
+  </tbody>
+</table>
+
+<hr>
+<div class="container my-3">
+    <%= link_to 'Input New Kitten', new_kittens_path, class: "btn btn-primary" %>
+</div>
+
+

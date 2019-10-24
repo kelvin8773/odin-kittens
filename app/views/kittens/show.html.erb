@@ -1,2 +1,14 @@
-<h1>Kittens#show</h1>
-<p>Find me in app/views/kittens/show.html.erb</p>
+
+<h1><%= @kitten.name %></h1>
+
+<p>Find out more about me here!</p>
+
+<p>Age: <%= @kitten.age %></p>
+<p>Cuteness: <%= @kitten.cuteness %></p>
+<p>Softness: <%= @kitten.softness %></p>
+
+<%= link_to 'Delete', kittens_path(@kitten), method: :delete, data: {confirm: "Are you sure?"}, class: "mr-2 btn btn-danger" %>
+
+<p>
+  <%= link_to "Back to Home", kittens_index_path, class: "my-4" %>
+</p>

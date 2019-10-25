@@ -1,24 +1,56 @@
 <h1>Welcome to Kittens World</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Age</th>
-      <th scope="col">Cuteness</th>
-      <th scope="col">Softness</th>
-      <th scope="col">Operation</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render @kittens %>
-  </tbody>
-</table>
+<div class="card-deck my-5">
 
-<hr>
-<div class="container my-3">
-    <%= link_to 'Input New Kitten', new_kittens_path, class: "btn btn-primary" %>
+<% if @kitten_photos %>  
+  <% @kitten_photos.each do |photo| %>
+    <div class="card">
+      <%= image_tag photo[:url], class: "card-img-top", alt: "Kittens" %>
+      <div class="card-body">
+        <h5 class="card-title"> <%= photo[:title] %> </h5>
+          <p class="card-text"> <small> <%= photo[:description].html_safe %></small> </p>
+          <p class="card-text"> <b> By: </b> <%= link_to photo[:owner_name], photo[:profile_url] %>  </p>
+          <p class="card-text"> <b> From: </b> <%= photo[:owner_location] %>  </p>
+        
+          <p class="card-text">
+            <small class="text-muted">
+              Photo Taken <%= time_ago_in_words(photo[:date_taken])  %> ago.
+              <div class="font-italic text-light"> Time Zone: <%= photo[:owner_timezone] %> </div>
+            </small>
+          </p>
+
+      </div>
+    </div>
+
+  <% end %>
+<% end %>
+
 </div>
+
+
+<div class="container mt-5">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Age</th>
+        <th scope="col">Cuteness</th>
+        <th scope="col">Softness</th>
+        <th scope="col">Operation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @kittens %>
+    </tbody>
+  </table>
+
+  <hr>
+  <div class="container my-3">
+      <%= link_to 'Input New Kitten', new_kittens_path, class: "btn btn-primary" %>
+  </div>
+
+</div>
+
 
 

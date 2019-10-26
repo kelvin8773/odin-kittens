@@ -1,2 +1,69 @@
-<h1>Kittens#index</h1>
-<p>Find me in app/views/kittens/index.html.erb</p>
+<h1>Welcome to Kittens World</h1>
+
+<div class="card-deck my-5">
+
+<% if @kitten_photos %>  
+  <% @kitten_photos.each do |photo| %>
+    <div class="card">
+      <%= image_tag photo[:url], class: "card-img-top", alt: "Kittens" %>
+      <div class="card-body">
+        <h5 class="card-title"> <%= photo[:title] %> </h5>
+          <p class="card-text"> <b> By: </b> <%= link_to photo[:owner_name], pages_info_path(user_id: photo[:owner_id]) %> </p>
+          <p class="card-text">
+            <small class="text-muted">
+              Photo Taken <%= time_ago_in_words(photo[:date_taken])  %> ago.
+            </small>
+          </p>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+</div>
+
+<h1 class="font-italic my-5">Find Your Favorite People in Flickr !!!</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3 mx-auto">
+    <div class="form-group">
+      <%= form_for(:search, url: pages_info_path, method: :get) do |f| %>
+        <%= f.text_field :input, class: 'form-control', placeholder: "Try 24448805@N07 or Tim Downey", value: "24448805@N07", label: "input" %>
+        <small id="searchHelpBlock" class="form-text text-muted">
+            Find Flickr User by id (Try '24448805@N07') or username (Try 'Tony Schi Photos').
+        </small>
+        <%= f.submit "Find User", class: "btn btn-info my-3" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<hr class="my-4">
+
+<div class="container mt-5">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Age</th>
+        <th scope="col">Cuteness</th>
+        <th scope="col">Softness</th>
+        <th scope="col">Operation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @kittens %>
+    </tbody>
+  </table>
+
+  <hr>
+    <div class="container my-3">
+        <%= link_to 'Input New Kitten', new_kittens_path, class: "btn btn-primary" %>
+    </div>
+
+</div>
+
+
+
+
+
+

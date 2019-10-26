@@ -1,0 +1,44 @@
+<h1 class="text-center my-5">User Info Page</h1>
+
+<% if @people %>
+  <div class="row">
+      <div class="col-md-6 col-md-offset-3 mx-auto">
+        <p class="text-left">User Name: <%= link_to @people.username, @people.profileurl %> </p>
+        <% if @people.methods.include?(:realname) %>
+          <p class="text-left">Real Name: <%= @people.realname %> </p>
+        <% end %>
+        <p class="text-left">User ID: <%= @people.id %> </p>
+        <p class="text-left">Total Public Photos: <%= link_to @people.photos.count, @people.photosurl %></p>
+        <% if @people.methods.include?(:location) %>
+          <p class="text-left">From: <%= @people.location %> </p>
+        <% end %>
+    </div>
+  </div>
+
+  <% if @photos %>
+    <div class="container">
+
+      <h2 class="font-weight-light text-center text-uppercase mt-4 mb-0 "> <%= @people.username %> 's Gallary</h2>
+
+      <hr class="mt-2 mb-5">
+
+      <div class="row text-center text-lg-left">
+
+      <% @photos.each do |photo| %>
+
+        <div class="col-lg-3 col-md-4 col-6">
+          <a href=<%= photo[:url] %> class="d-block mb-4 h-100">
+            <%= image_tag photo[:url], class: "img-fluid img-thumbnail", alt: "gallary" %>
+        </div>
+
+      <% end %>
+
+      </div>
+
+    </div>
+
+  <% end %>
+<% else %>
+  <h3 class="text-center my-5">No Such User, Please try again!</h3>
+<% end %>
+

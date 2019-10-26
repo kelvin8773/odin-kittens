@@ -33,7 +33,13 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # custom gem
 gem 'bootstrap', '~>4.3.1'
 
+# for linter test ruby code
 gem 'rubocop'
+
+# importing API
+gem 'dotenv-rails', groups: %i[development test]
+
+gem 'flickr', '~> 2.0', '>= 2.0.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -55,6 +61,10 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+end
+
+group :production do
+  gem 'pg', '~> 0.18.4'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

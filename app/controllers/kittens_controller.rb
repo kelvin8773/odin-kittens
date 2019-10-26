@@ -1,8 +1,21 @@
 # frozen_string_literal: true
 
+# require 'flickr'
+
 class KittensController < ApplicationController
   def index
+    flickr = Flickr.new
+
     @kittens = Kitten.all
+
+    paramaters = { flickr: flickr,
+                   user_id: '',
+                   search_text: 'kittens',
+                   tags: 'cute, cat, kittens',
+                   extras: 'date_taken, owner_name',
+                   size: 5 }
+
+    @kitten_photos = get_flickr_photos(paramaters)
 
     respond_to do |format|
       format.html
@@ -11,11 +24,11 @@ class KittensController < ApplicationController
   end
 
   def show
-    @kitten = Kitten.find_by(id: params[:format]) || Kitten.first
+    @kitten = Kitten.find_by(id: params[:id]) || Kitten.first
 
     respond_to do |format|
-      format.html
       format.json { render json: @kitten }
+      format.html
     end
   end
 
@@ -30,18 +43,18 @@ class KittensController < ApplicationController
                          softness: params[:kitten][:softness])
     if @kitten.save
       flash[:success] = 'Kitten created!'
-      redirect_to kittens_path(@kitten.id)
+      redirect_to kittens_path(id: @kitten.id)
     else
       render 'new'
     end
   end
 
   def edit
-    @kitten = Kitten.find_by(id: params[:format])
+    @kitten = Kitten.find_by(id: params[:id])
   end
 
   def update
-    @kitten = Kitten.find_by(id: params[:format])
+    @kitten = Kitten.find_by(id: params[:id])
 
     permitted = params.require(:kitten).permit(:name, :age, :cuteness, :softness)
     if @kitten.update_attributes(permitted)
@@ -50,11 +63,11 @@ class KittensController < ApplicationController
       flash[:warning] = 'Kitten did not update'
     end
 
-    redirect_to kittens_path(@kitten.id)
+    redirect_to kittens_path(id: @kitten.id)
   end
 
   def destroy
-    @kitten = Kitten.find_by(id: params[:format])
+    @kitten = Kitten.find_by(id: params[:id])
     @kitten.destroy
     flash[:success] = 'Kitten deleted!'
     redirect_to root_url

@@ -1,5 +1,5 @@
 
-<%= form_for(@kitten, url: kittens_path(@kitten)) do |f| %>
+<%= form_for(@kitten, url: kittens_path(id: @kitten.id)) do |f| %>
     <div class="row">
       <div class="form-group col-md-3"> 
       Kitten's name: <%= f.text_field :name, class: "form-control" %>

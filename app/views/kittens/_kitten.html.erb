@@ -5,9 +5,9 @@
       <td><%= kitten.cuteness %></td>
       <td><%= kitten.softness %></td>
       <td>
-            <%= link_to 'Show', kittens_show_path(kitten), class: "mr-2" %>
-            <%= link_to 'Edit', edit_kittens_path(kitten), class: "mr-2 text-info" %>
-            <%= link_to 'Delete', kittens_path(kitten), method: :delete, data: {confirm: "Are you sure?"}, class: "mr-2 text-danger" %>
+            <%= link_to 'Show', kittens_show_path(id: kitten.id), class: "mr-2" %>
+            <%= link_to 'Edit', edit_kittens_path(id: kitten.id), class: "mr-2 text-info" %>
+            <%= link_to 'Delete', kittens_path(id: kitten.id), method: :delete, data: {confirm: "Are you sure?"}, class: "mr-2 text-danger" %>
       </td>
 
 </tr>

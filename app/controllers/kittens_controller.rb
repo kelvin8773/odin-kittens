@@ -1,14 +1,14 @@
 # frozen_string_literal: true
+
 # require 'flickr'
 
 class KittensController < ApplicationController
-
   def index
     flickr = Flickr.new
 
     @kittens = Kitten.all
 
-    @kitten_photos = get_flickr_photos(flickr, "", "kittens", "cute, cat, kittens", "date_taken, owner_name", 5)
+    @kitten_photos = get_flickr_photos(flickr, '', 'kittens', 'cute, cat, kittens', 'date_taken, owner_name', 5)
 
     respond_to do |format|
       format.html
@@ -23,7 +23,6 @@ class KittensController < ApplicationController
       format.json { render json: @kitten }
       format.html
     end
-
   end
 
   def new
@@ -66,5 +65,4 @@ class KittensController < ApplicationController
     flash[:success] = 'Kitten deleted!'
     redirect_to root_url
   end
-
 end

@@ -37,10 +37,9 @@ gem 'bootstrap', '~>4.3.1'
 gem 'rubocop'
 
 # importing API
-gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails', groups: %i[development test]
 
 gem 'flickr', '~> 2.0', '>= 2.0.2'
-
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

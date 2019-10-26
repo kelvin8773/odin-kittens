@@ -4,9 +4,11 @@
 class KittensController < ApplicationController
 
   def index
+    flickr = Flickr.new
+
     @kittens = Kitten.all
 
-    @kitten_photos = get_flickr_photos("kittens", 3)
+    @kitten_photos = get_flickr_photos(flickr, "", "kittens", "cute, cat, kittens", "date_taken, owner_name", 5)
 
     respond_to do |format|
       format.html
@@ -63,36 +65,6 @@ class KittensController < ApplicationController
     @kitten.destroy
     flash[:success] = 'Kitten deleted!'
     redirect_to root_url
-  end
-
-  private
-
-  def get_flickr_photos(search_text, size)
-    flickr = Flickr.new
-    photos = []
-
-    photo_lists = flickr.photos.search(api_key: ENV["FLICKR_API_KEY"], text: search_text, privacy_filter: 1, tags: "animal")
-
-    random_ids = Array.new(size) { rand(99) }
-
-    random_ids.each do |id|
-      photo_info = flickr.photos.getInfo(photo_id: photo_lists[id].id)
-      people_info = flickr.people.getInfo(user_id: photo_lists[id].owner)
-
-      photo = { title: photo_info.title[0..50],
-                description: photo_info.description,
-                date_taken: photo_info.dates.taken,
-                owner_description: people_info.description.size < 200 ? people_info.description : "To continue ...",
-                profile_url: people_info.profileurl,
-                url: Flickr.url_b(photo_info),
-                owner_name: people_info.methods.include?(:realname) ? people_info.realname : people_info.username,
-                owner_location: people_info.methods.include?(:location) ? people_info.location : "Earth",
-                owner_timezone: people_info.methods.include?(:timezone) ? people_info.timezone.timezone_id : "GMT"
-              }
-
-      photos << photo
-    end
-    photos
   end
 
 end

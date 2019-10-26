@@ -8,7 +8,14 @@ class KittensController < ApplicationController
 
     @kittens = Kitten.all
 
-    @kitten_photos = get_flickr_photos(flickr, '', 'kittens', 'cute, cat, kittens', 'date_taken, owner_name', 5)
+    paramaters = { flickr: flickr,
+                   user_id: '',
+                   search_text: 'kittens',
+                   tags: 'cute, cat, kittens',
+                   extras: 'date_taken, owner_name',
+                   size: 5 }
+
+    @kitten_photos = get_flickr_photos(paramaters)
 
     respond_to do |format|
       format.html

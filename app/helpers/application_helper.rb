@@ -1,21 +1,21 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  def get_flickr_photos(flickr, user_id, search_text, tags, extras, size)
+  def get_flickr_photos(paramaters)
     photos = []
     urls = 'url_q,'
 
-    if !search_text.empty?
-      photo_lists = flickr.photos.search(text: search_text,
-                                         tags: tags,
-                                         extras: urls + extras,
-                                         per_page: size,
-                                         privacy_filter: 1)
-    elsif !user_id.empty?
-      photo_lists = flickr.people.getPhotos(user_id: user_id,
-                                            extras: urls + extras,
-                                            per_page: size,
-                                            privacy_filter: 1)
+    if !paramaters[:search_text].empty?
+      photo_lists = paramaters[:flickr].photos.search(text: paramaters[:search_text],
+                                                      tags: paramaters[:tags],
+                                                      extras: urls + paramaters[:extras],
+                                                      per_page: paramaters[:size],
+                                                      privacy_filter: 1)
+    elsif !paramaters[:user_id].empty?
+      photo_lists = paramaters[:flickr].people.getPhotos(user_id: paramaters[:user_id],
+                                                         extras: urls + paramaters[:extras],
+                                                         per_page: paramaters[:size],
+                                                         privacy_filter: 1)
     end
 
     photo_lists.each do |list|

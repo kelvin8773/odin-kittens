@@ -13,7 +13,7 @@ class KittensController < ApplicationController
                    search_text: 'kittens',
                    tags: 'cute, cat, kittens',
                    extras: 'date_taken, owner_name',
-                   size: 5 }
+                   size: 4 }
 
     @kitten_photos = get_flickr_photos(paramaters)
 
